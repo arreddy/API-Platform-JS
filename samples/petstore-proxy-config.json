@@ -1,0 +1,117 @@
+{
+  "name": "Pet Store API",
+  "slug": "petstore",
+  "basePath": "/api/v1/petstore",
+  "targetEndpoint": "https://petstore.swagger.io/v2",
+  "description": "Public Pet Store API",
+  "version": "1.0.1",
+  "status": "active",
+  "requireAuthentication": true,
+  "authType": "apikey",
+  "corsEnabled": true,
+  "corsOrigins": ["*"],
+  "enableRateLimiting": true,
+  "enableCaching": true,
+  "cacheTTLSeconds": 300,
+  "timeoutMs": 30000,
+  "routes": [
+    {
+      "pathPattern": "/pet",
+      "methods": ["PUT", "POST"],
+      "targetPath": "/pet",
+      "requestValidationEnabled": true,
+      "responseValidationEnabled": true,
+      "rateLimitEnabled": true,
+      "rateLimitRequests": 100,
+      "rateLimitWindow": 60,
+      "transformations": {
+        "request": {
+          "headerMappings": {
+            "X-API-Key": "api_key"
+          },
+          "bodyTransform": null
+        },
+        "response": {
+          "statusCodeMapping": {
+            "200": 200,
+            "400": 400,
+            "404": 404,
+            "405": 405
+          }
+        }
+      }
+    },
+    {
+      "pathPattern": "/pet/{petId}",
+      "methods": ["GET", "POST", "DELETE"],
+      "targetPath": "/pet/{petId}",
+      "requestValidationEnabled": true,
+      "responseValidationEnabled": true,
+      "rateLimitEnabled": true,
+      "rateLimitRequests": 500,
+      "rateLimitWindow": 60,
+      "transformations": {
+        "request": {
+          "headerMappings": {
+            "X-API-Key": "api_key"
+          },
+          "pathParameterMappings": {
+            "petId": "petId"
+          }
+        },
+        "response": {}
+      }
+    }
+  ],
+  "policies": [
+    {
+      "type": "rate-limit",
+      "config": {
+        "type": "token_bucket",
+        "requests_per_minute": 1000,
+        "burst_size": 100
+      },
+      "enabled": true
+    },
+    {
+      "type": "authentication",
+      "config": {
+        "providers": ["apikey"],
+        "apiKeyHeader": "X-API-Key",
+        "apiKeyScheme": "Bearer"
+      },
+      "enabled": true
+    },
+    {
+      "type": "logging",
+      "config": {
+        "logRequestHeaders": true,
+        "logResponseHeaders": true,
+        "logRequestBody": false,
+        "logResponseBody": false,
+        "sensitiveFields": ["password", "token", "secret"]
+      },
+      "enabled": true
+    },
+    {
+      "type": "caching",
+      "config": {
+        "ttlSeconds": 300,
+        "keyPattern": "{method}:{path}",
+        "excludedMethods": ["POST", "PUT", "DELETE"],
+        "excludedPaths": ["/pet"]
+      },
+      "enabled": true
+    }
+  ],
+  "documentation": {
+    "swaggerUI": true,
+    "redoc": true,
+    "description": "Complete Pet Store API with OAuth2 and API Key authentication"
+  },
+  "mockMode": false,
+  "mockData": {
+    "enabled": false,
+    "delay": 100
+  }
+}

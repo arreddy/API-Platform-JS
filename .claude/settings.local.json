@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npx tsc *)",
+      "Bash(./node_modules/.bin/tsc --noEmit)",
+      "Bash(npm run *)",
+      "Bash(git -C \"/Users/adirangareddypateel/Library/Mobile Documents/com~apple~CloudDocs/API-Platform\" log --oneline -10)",
+      "Bash(git -C \"/Users/adirangareddypateel/Library/Mobile Documents/com~apple~CloudDocs/API-Platform\" show --stat HEAD)",
+      "Bash(git -C \"/Users/adirangareddypateel/Library/Mobile Documents/com~apple~CloudDocs/API-Platform\" update-ref -d HEAD)",
+      "Bash(git -C \"/Users/adirangareddypateel/Library/Mobile Documents/com~apple~CloudDocs/API-Platform\" status --short)",
+      "Bash(git -C \"/Users/adirangareddypateel/Library/Mobile Documents/com~apple~CloudDocs/API-Platform\" add .)",
+      "Bash(rm \"/Users/adirangareddypateel/Library/Mobile Documents/com~apple~CloudDocs/API-Platform/.git/index\" && git -C \"/Users/adirangareddypateel/Library/Mobile Documents/com~apple~CloudDocs/API-Platform\" add . 2>&1)"
+    ],
+    "additionalDirectories": [
+      "/Users/adirangareddypateel/Library/Mobile Documents/com~apple~CloudDocs/API-Platform/.git"
+    ]
+  }
+}
